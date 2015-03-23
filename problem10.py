@@ -1,35 +1,21 @@
-# Project Euler
-# Problem 10
-# https://projecteuler.net/problem=10
+from math import sqrt
+N = 2000000
+sum_of_primes = 0
 
-#this function determines the number of prime numbers up to N
-def findPrimes(N):
-	counter = 0;
-	for i in range(2, N):
-		if (isPrime(i) == True):
-			counter = counter + i;
-	return counter;
+def is_prime(x):
+	if x < 2:
+		return False
+		
+	for i in range (2, int(sqrt(x)) + 1):
+		if x %i == 0:
+			return False
+	return True
 
-#this function checks if the given integer p is prime number
-def isPrime(p):
-	check = False;
+list_of_primes = [x for x in range(N) if is_prime(x)]
 
-	if (p==2):
-		check = True;
-	elif (p %2 == 0 or ((p > 7) and ((p %3 == 0) or (p%5==0) or (p%7==0)))):
-		check = False;
-	else: 
-		for j in range(2, (p+1)/2 + 1):
-			if (p %j == 0):
-				check = False;
-				break;
-			else: 
-				check = True;
-	return check;
+for prime in list_of_primes:
+	#print prime
+	sum_of_primes += prime
 
 
-N_TEST = input();
-
-for n in range(0,N_TEST):
-	N = input();
-	print(findPrimes(N+1));
+print sum_of_primes
